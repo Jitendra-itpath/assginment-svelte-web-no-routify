@@ -5,7 +5,6 @@
     import Product from "./Product.svelte";
 </script>
   
-
 <Navbar />
 
 <Home />

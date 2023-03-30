@@ -1,20 +1,22 @@
 <script lang="ts">
   let showMenu:boolean = false;
+  let title = "Title"
+  let tagLine = "Tag line"
 
   function toggleNavbar():void {
     showMenu = !showMenu;
   }
 </script>
 
-<div class="nav-bar bg-gray-700 fixed left-0 right-0">
+<div class="bg-gray-700 fixed left-0 right-0">
     <nav class="container px-6 py-4">
       <div>
           <div class="flex text-white">
-              <img src="../images/logo.webp" alt="LOGO" class="w-12 h-12 md:w-30">
+              <img src="../images/logo.webp" alt="LOGO" class="w-12 h-12 md:w-30" />
               
               <div class="ml-3">
-                  <div>[Title]</div>
-                  <div>[Tag line]</div>
+                  <div>{title}</div>
+                  <div>{tagLine}</div>
               </div>
 
             <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -40,5 +42,3 @@
     </nav>
 </div>
 <div class="my-24 md:my-36"></div>
-
-
