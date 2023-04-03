@@ -1,21 +1,9 @@
 <script lang="ts">
-    import Navbar from "./Navbar.svelte";
-	import Footer from "./Footer.svelte";
-    import Home from "./Home.svelte";
-    import Product from "./Product.svelte";
+    import Navbar from "./components/Navbar.svelte";
+	import Footer from "./components/Footer.svelte";
 </script>
   
 <Navbar />
-
-<Home />
-
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<Product />
 
 <Footer />
 
