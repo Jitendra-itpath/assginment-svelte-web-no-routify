@@ -1,6 +1,7 @@
 <script lang="ts">
+    import * as _ from 'lodash';
     import { writable } from 'svelte/store';
-
+    import { productInfo } from '../StoreData';
     let blurScreen : boolean = false
     let addProductToggle : boolean = false;   
     let deleteProductToggle : boolean = false;   
@@ -9,35 +10,63 @@
     function formToggle(formName:string):void{
         if(formName === 'insert'){
             addProductToggle = !addProductToggle;
-            blurScreen = !blurScreen
         }
         if(formName === 'delete'){
             deleteProductToggle = !deleteProductToggle;
-            blurScreen = !blurScreen
         }
         if(formName === 'update'){
             updateProductToggle = !updateProductToggle;
-            blurScreen = !blurScreen
+        }
+        blurScreen = !blurScreen
+    }
+    let productName = '';
+    let productDescription = ''
+    let productPrice = ''
+
+    let productPriceError = ''
+    let productNameError = ''
+    let productDescriptionError = ''
+   
+    function validation(){
+        let status:boolean = true
+        if(productName === ''){
+            productNameError = 'is required'
+            status = false
+        }
+        if(productDescription === ''){
+            productDescriptionError = 'is required'
+            status = false
+        }
+        if(productPrice === ''){
+            productPriceError = 'is required'
+            status = false
+        }else if(isNaN(Number(productPrice))){
+            productPriceError = 'Enter proper price'
+            status = false
+        }
+        return status
+    }
+    function addProduct(){
+        if(validation()){
+            let productId = 1
+            productInfo.subscribe(value => {
+                if(_.last(value) != undefined){
+                    productId = (_.last(value)).productId + 1;
+                }
+            });
+            productInfo.update(users => [...users , {productId , productName , productDescription , productPrice}])
+            productName = '';
+            productDescription = ''
+            productPrice = ''
+            formToggle('insert')
         }
     }
-    let disableButton:boolean = true;
-    let productName = '';
-    let productNameError = ''
-    const handleProductName = (e) => {
-        productName = e.target.value;
-        if(productName == ''){
-            productNameError = 'Procuct name is empty'
-            disableButton = true
-        }
-        else if(productName.length > 100){
-            productNameError = 'Procuct length should not increase 100 character'
-            disableButton = true
-        }
-        else{
-            productNameError = ''
-            disableButton = false
-        }
-    }; 
+    let productData
+    productInfo.subscribe(value => {
+        productData = value
+        console.log(productData);
+    });
+    
 </script>
 
 <div class="md:mx-10 mx-2">
@@ -70,6 +99,33 @@
                 </tr>
             </thead>
             <tbody>
+
+                {#each productData as product}
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                            {product.productName}
+                        </th>
+                        <td class="px-6 py-4">
+                            ${product.productPrice}
+                        </td>
+                        <td class="px-6 py-4">
+                            {product.productDescription}
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex">
+                                <div>
+                                    <button type="button" on:click={()=>formToggle('update')} class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Edit</button>
+                                </div>
+                                <div>
+                                    <button type="button" on:click={()=>formToggle('delete')} class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Delete</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {/each}
+
+
+
                 <tr class="bg-white border-b">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                         Apple MacBook Pro 17"
@@ -90,8 +146,8 @@
                             </div>
                         </div>
                     </td>
-                    
                 </tr>
+
                 <tr class="border-b bg-gray-50">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                         Microsoft Surface Pro
@@ -191,23 +247,25 @@
                 <form class="space-y-6" action="#">
                     <div>
                         <label for="Name" class="block mb-2 text-sm font-medium text-gray-900  ">Name</label>
-                        <input type="text" on:input={handleProductName} name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                         focus:border-blue-500 block w-full p-2.5 " placeholder="name" required>
+                        <input type="text" bind:value={productName} name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="name" >
                          <span class="text-red-500">{productNameError}</span>
                     </div>
                     <div>
                         <label for="Description" class="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
-                        <textarea name="Description" placeholder="Product Description" rows="3" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                        <textarea bind:value={productDescription} name="Description" placeholder="Product Description" rows="3" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
                            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+                        <span class="text-red-500">{productDescriptionError}</span>
                     </div>
                     <div>
-                        <label for="Name" class="block mb-2 text-sm font-medium text-gray-900  ">Price</label>
-                        <input type="text" name="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                           focus:border-blue-500 block w-full p-2.5 " placeholder="$ 0.0" required>
+                        <label for="price" class="block mb-2 text-sm font-medium text-gray-900  ">Price</label>
+                        <input bind:value={productPrice} type="text" name="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
+                           focus:border-blue-500 block w-full p-2.5 " placeholder="$ 0.0" >
+                        <span class="text-red-500">{productPriceError}</span>
                     </div>
                     <div class="flex items-center rounded-b">
                         <div class="ml-auto">
-                            <button type="submit" disabled='{disableButton}' class=" disabled:opacity-40 mx-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Add</button>
+                            <button type="button" on:click={addProduct} class=" disabled:opacity-40 mx-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Add</button>
+                            
                             <button on:click={()=>formToggle('insert')} type="button" class="mx-1 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Cancel</button>
                         </div>
                     </div>
@@ -223,7 +281,7 @@
                     <div>
                         <label for="Name" class="block mb-2 text-sm font-medium text-gray-900  "> Please write the deleting item name in the textbox. </label>
                         <input type="text" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                       focus:border-blue-500 block w-full p-2.5 " placeholder="[Product_Name]" required>
+                       focus:border-blue-500 block w-full p-2.5 " placeholder="[Product_Name]" >
                     </div>
                     <div class="flex items-center rounded-b">
                         <div class="ml-auto">
@@ -243,7 +301,7 @@
                     <div>
                         <label for="Name" class="block mb-2 text-sm font-medium text-gray-900  ">Name</label>
                         <input type="text" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                       focus:border-blue-500 block w-full p-2.5 " placeholder="name" required>
+                       focus:border-blue-500 block w-full p-2.5 " placeholder="name" >
                     </div>
                     <div>
                         <label for="Description" class="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
@@ -253,7 +311,7 @@
                     <div>
                         <label for="Name" class="block mb-2 text-sm font-medium text-gray-900  ">Price</label>
                         <input type="text" name="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                         focus:border-blue-500 block w-full p-2.5 " placeholder="$ 0.0" required>
+                         focus:border-blue-500 block w-full p-2.5 " placeholder="$ 0.0" >
                     </div>
                     <div class="flex items-center rounded-b">
                         <div class="ml-auto">
