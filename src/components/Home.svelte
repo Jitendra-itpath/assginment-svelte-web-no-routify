@@ -1,5 +1,13 @@
 <script lang="ts">
-    
+  // import { track } from "../TrackComponents";
+  //   import ContactUs from "./ContactUs.svelte";
+  //   import Product from "./Product.svelte";
+  //   function changeToProduct(){
+  //     track.update(value => Product)
+  //   }
+  //   function changeTocontactUs(){
+  //     track.update(value => ContactUs)
+  //   }
 </script>
   
 

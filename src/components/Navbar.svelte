@@ -1,9 +1,13 @@
 <script lang="ts">
+  
   import Home from "./Home.svelte";
   import Product from "./Product.svelte";
   import AboutUs from "./AboutUs.svelte";
   import ContactUs from "./ContactUs.svelte";
   import Admin from "./Admin.svelte";
+
+  import { writable } from 'svelte/store';
+  import { track } from "../TrackComponents";
 
   let showMenu:boolean = false;
   let title = "Title"
@@ -12,11 +16,10 @@
   function toggleNavbar():void {
     showMenu = !showMenu;
   }
-
-  let currentComponent = Home;
+  
   function switchComponents(componentName){
-    currentComponent = componentName;
-    showMenu = false;
+    track.update(value => componentName)
+    showMenu = !showMenu;
   }
 </script>
 
@@ -52,4 +55,3 @@
     </nav>
 </div>
 <div class="my-24 md:my-36"></div>
-<svelte:component this={currentComponent} />

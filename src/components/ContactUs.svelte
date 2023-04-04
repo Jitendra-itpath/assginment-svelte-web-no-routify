@@ -1,48 +1,59 @@
 <script lang="ts">
- import { writable } from 'svelte/store';
+import { writable } from 'svelte/store';
+import { contactsInfo } from '../StoreData';
+
 
 
 let userName:string = ''
 let userEmail:string = ''
 let userContactNo:string = ''
 
+function addContact() {
+    contactsInfo.update(users => [...users , { userName , userEmail, userContactNo}])
+    userName = ''
+    userEmail = ''
+    userContactNo = '' 
+}
+contactsInfo.subscribe(value => {
+    console.log(value); 
+});
 
 </script>
 
 
 <div class="grid md:grid-cols-2 md:gap:24">
-        <div class="bg-white rounded-lg shadow border border-gray-300 md:mx-5 md:mr-18 mx-3">
-            <div class="px-6 py-6 lg:px-8">
-                  <form class="space-y-6" action="#">
-                    <div>
-                        <label for="Name" class="block mb-2 text-sm font-medium text-gray-900  ">Name</label>
-                        <input type="text" name="name" bind:value={userName}
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                        focus:border-blue-500 block w-full p-2.5 " placeholder="name" required>
-                    </div>
-                    <div>
-                        <label for="Description" class="block mb-2 text-sm font-medium text-gray-900 ">Email-Id</label>
-                        <input type="text" name="email" bind:value={userEmail}
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                        focus:border-blue-500 block w-full p-2.5 " placeholder="adam.smith@gmail.com" required>
-                    </div>
+    <div class="bg-white rounded-lg shadow border border-gray-300 md:mx-5 md:mr-18 mx-3">
+        <div class="px-6 py-6 lg:px-8">
+              <form class="space-y-6" action="#">
+                <div>
+                    <label for="Name" class="block mb-2 text-sm font-medium text-gray-900  ">Name</label>
+                    <input type="text" name="name" bind:value={userName}
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
+                    focus:border-blue-500 block w-full p-2.5 " placeholder="name" required>
+                </div>
+                <div>
+                    <label for="Description" class="block mb-2 text-sm font-medium text-gray-900 ">Email-Id</label>
+                    <input type="text" name="email" bind:value={userEmail}
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
+                    focus:border-blue-500 block w-full p-2.5 " placeholder="adam.smith@gmail.com" required>
+                </div>
 
-                    <div>
-                        <label for="Name" class="block mb-2 text-sm font-medium text-gray-900  ">Contact Number</label>
-                        <input type="text" name="ContactNumber" bind:value={userContactNo}
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                        focus:border-blue-500 block w-full p-2.5 " placeholder="000-999-8888" required>
-                    </div>
+                <div>
+                    <label for="Name" class="block mb-2 text-sm font-medium text-gray-900  ">Contact Number</label>
+                    <input type="text" name="ContactNumber" bind:value={userContactNo}
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
+                    focus:border-blue-500 block w-full p-2.5 " placeholder="000-999-8888" required>
+                </div>
 
-                      <div class="flex items-center rounded-b">
-                          <div class="ml-auto">
-                              <button type="button" class="mx-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Submit</button>
-                              <button type="reset" class="mx-1 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Reset</button>
-                          </div>
+                  <div class="flex items-center rounded-b">
+                      <div class="ml-auto">
+                          <button type="button" on:click={addContact} class="mx-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Submit</button>
+                          <button type="reset" class="mx-1 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Reset</button>
                       </div>
-                  </form>
-            </div>
+                  </div>
+              </form>
         </div>
+    </div>
         <div class="h-96 md:mt-0 mt-16">
             <div>
                 <div class="mapouter">
