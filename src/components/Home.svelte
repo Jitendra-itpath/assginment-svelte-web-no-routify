@@ -1,16 +1,19 @@
 <script lang="ts">
-  // import { track } from "../TrackComponents";
-  //   import ContactUs from "./ContactUs.svelte";
-  //   import Product from "./Product.svelte";
-  //   function changeToProduct(){
-  //     track.update(value => Product)
-  //   }
-  //   function changeTocontactUs(){
-  //     track.update(value => ContactUs)
-  //   }
-</script>
-  
+  import { productInfo } from '../stores/StoreData';
+  import { contactsInfo } from '../stores/StoreData';
 
+  let productData
+  productInfo.subscribe(value => {
+      productData = value
+  });
+  let contactsData;
+  contactsInfo.subscribe(value => {
+      contactsData = value
+  });
+
+  let totalProducts = Object.keys(productData).length;
+  let totalContacts = Object.keys(contactsData).length;
+</script>
 <div class="home mt-5 md:mx-8 mx-4">
     <div class="grid md:grid-cols-2 lg:gap-24 md:gap-16 gap-10">
         <div class="flex justify-center">
@@ -18,7 +21,7 @@
               class="block max-w-fit rounded-lg bg-white p-6 shadow-lg">
               <h5
                 class="mb-2 text-xl font-medium leading-tight text-neutral-800 ">
-                Products
+                Products Available : {totalProducts}
               </h5>
               <p class="mb-4 text-base text-neutral-600 text-justify">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -34,7 +37,7 @@
               class="block max-w-fit rounded-lg bg-white p-6 shadow-lg ">
               <h5
                 class="mb-2 text-xl font-medium leading-tight text-neutral-800">
-                Contact US
+                Total {totalContacts} users contactd us
               </h5>
               <p class="mb-4 text-base text-neutral-600 text-justify">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

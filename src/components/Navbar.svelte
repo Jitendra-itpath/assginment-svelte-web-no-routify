@@ -6,8 +6,7 @@
   import ContactUs from "./ContactUs.svelte";
   import Admin from "./Admin.svelte";
 
-  import { writable } from 'svelte/store';
-  import { track } from "../TrackComponents";
+  import { track } from "../stores/TrackComponents";
 
   let showMenu:boolean = false;
   let title = "Title"
@@ -16,7 +15,7 @@
   function toggleNavbar():void {
     showMenu = !showMenu;
   }
-  
+
   function switchComponents(componentName){
     track.update(value => componentName)
     showMenu = !showMenu;

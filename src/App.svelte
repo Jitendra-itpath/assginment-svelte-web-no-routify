@@ -1,7 +1,7 @@
 <script lang="ts">
     import Navbar from "./components/Navbar.svelte";
 	import Footer from "./components/Footer.svelte";   
-    import { track } from "./TrackComponents";
+    import { track } from "./stores/TrackComponents";
     
     let component;
     track.subscribe(value => {

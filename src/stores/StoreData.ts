@@ -1,0 +1,47 @@
+import { writable } from 'svelte/store';
+
+export const contactsInfo = writable([
+    { userName : 'User 1', userEmail : 'user1@gmail.com' , userContactNo : '9874563211' },
+    { userName : 'User 2', userEmail : 'user2@gmail.com' , userContactNo : '9874563212' },
+    { userName : 'User 3', userEmail : 'user3@gmail.com' , userContactNo : '9874563213' },
+    { userName : 'User 4', userEmail : 'user4@gmail.com' , userContactNo : '9874563214' },
+    { userName : 'User 5', userEmail : 'user5@gmail.com' , userContactNo : '9874563215' },
+    { userName : 'User 6', userEmail : 'user6@gmail.com' , userContactNo : '9874563216' },
+    { userName : 'User 7', userEmail : 'user7@gmail.com' , userContactNo : '9874563217' },
+    { userName : 'User 8', userEmail : 'user8@gmail.com' , userContactNo : '9874563218' },
+    { userName : 'User 9', userEmail : 'user9@gmail.com' , userContactNo : '9874563219' },
+    { userName : 'User 10', userEmail : 'user10@gmail.com' , userContactNo : '8080563210' },
+    { userName : 'User 11', userEmail : 'user11@gmail.com' , userContactNo : '8181563211' },
+    { userName : 'User 12', userEmail : 'user12@gmail.com' , userContactNo : '8282563212' },
+    { userName : 'User 13', userEmail : 'user13@gmail.com' , userContactNo : '8383563213' },
+    { userName : 'User 14', userEmail : 'user14@gmail.com' , userContactNo : '8484563214' },
+    { userName : 'User 15', userEmail : 'user15@gmail.com' , userContactNo : '8585563215' }
+]);
+
+export const productInfo = writable([
+    { productId: 1, productName: 'Product 1', productDescription: 'Description for product 1', productPrice: '1000' },
+    { productId: 2, productName: 'Product 2', productDescription: 'Description for product 2', productPrice: '2000' },
+    { productId: 3, productName: 'Product 3', productDescription: 'Description for product 3', productPrice: '3000' },
+    { productId: 4, productName: 'Product 4', productDescription: 'Description for product 4', productPrice: '4000' },
+    { productId: 5, productName: 'Product 5', productDescription: 'Description for product 5', productPrice: '5000' },
+    { productId: 6, productName: 'Product 6', productDescription: 'Description for product 6', productPrice: '6000' },
+    { productId: 7, productName: 'Product 7', productDescription: 'Description for product 7', productPrice: '7000' },
+    { productId: 8, productName: 'Product 8', productDescription: 'Description for product 8', productPrice: '8000' },
+    { productId: 9, productName: 'Product 9', productDescription: 'Description for product 9', productPrice: '9000' },
+    { productId: 10, productName: 'Product 10', productDescription: 'Description for product 10', productPrice: '1000' },
+    { productId: 11, productName: 'Product 11', productDescription: 'Description for product 11', productPrice: '1100' },
+    { productId: 12, productName: 'Product 12', productDescription: 'Description for product 12', productPrice: '1200' },
+    { productId: 13, productName: 'Product 13', productDescription: 'Description for product 13', productPrice: '1300' },
+    { productId: 14, productName: 'Product 14', productDescription: 'Description for product 14', productPrice: '1400' },
+    { productId: 15, productName: 'Product 15', productDescription: 'Description for product 15', productPrice: '1500' },
+    { productId: 16, productName: 'Product 16', productDescription: 'Description for product 16', productPrice: '1600' },
+    { productId: 17, productName: 'Product 17', productDescription: 'Description for product 17', productPrice: '1700' },
+    { productId: 18, productName: 'Product 18', productDescription: 'Description for product 18', productPrice: '1800' },
+    { productId: 19, productName: 'Product 19', productDescription: 'Description for product 19', productPrice: '1900' },
+    { productId: 20, productName: 'Product 20', productDescription: 'Description for product 20', productPrice: '2000' },
+    { productId: 21, productName: 'Product 21', productDescription: 'Description for product 21', productPrice: '2100' },
+    { productId: 22, productName: 'Product 22', productDescription: 'Description for product 22', productPrice: '2200' },
+    { productId: 23, productName: 'Product 23', productDescription: 'Description for product 23', productPrice: '2300' },
+    { productId: 24, productName: 'Product 24', productDescription: 'Description for product 24', productPrice: '2400' },
+    { productId: 25, productName: 'Product 25', productDescription: 'Description for product 25', productPrice: '2500' },
+]);
