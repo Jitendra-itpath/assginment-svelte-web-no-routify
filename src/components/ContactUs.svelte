@@ -1,23 +1,62 @@
 <script lang="ts">
-import { writable } from 'svelte/store';
-import { contactsInfo } from '../StoreData';
+import { contactsInfo } from '../stores/StoreData';
+import * as _ from 'lodash'
 
+let userName = ''
+let userEmail = ''
+let userContactNo = ''
 
+let userNameError = ''
+let userEmailError = ''
+let userContactError = ''
 
-let userName:string = ''
-let userEmail:string = ''
-let userContactNo:string = ''
-
-function addContact() {
-    contactsInfo.update(users => [...users , { userName , userEmail, userContactNo}])
-    userName = ''
-    userEmail = ''
-    userContactNo = '' 
-}
+let contactsData;
 contactsInfo.subscribe(value => {
-    console.log(value); 
+    contactsData = value
 });
 
+function validation():boolean{
+    let status:boolean = true
+    if(userName === ''){
+        userNameError = 'This field is required'
+        status = false
+    }
+    if(userEmail === ''){
+        userEmailError = 'This field is required'
+        status = false
+    }
+    if(!userEmail.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+        userEmailError = 'This field only accept valid email'
+        status = false
+    }
+    if(userContactNo === ''){
+        userContactError = 'This field is required'
+        status = false
+    }else if(isNaN(Number(userContactNo))){
+        userContactError = 'This field only accepts numeric number'
+        status = false
+    }
+    if(userContactNo.length !== 10){
+        userContactError = 'This field only accepts numeric 10 digit Contact No'
+        status = false
+    }
+    return status
+}
+
+function clearForm():void{
+    userNameError = ''
+    userEmailError = ''
+    userContactError = ''
+}
+function addContact():void {
+    clearForm()
+    if(validation()){
+        contactsInfo.update(users => [...users , { userName , userEmail, userContactNo}])
+        userName = ''
+        userEmail = ''
+        userContactNo = '' 
+    }
+}
 </script>
 
 
@@ -30,25 +69,28 @@ contactsInfo.subscribe(value => {
                     <input type="text" name="name" bind:value={userName}
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
                     focus:border-blue-500 block w-full p-2.5 " placeholder="name" required>
+                    <span class="text-red-500">{userNameError}</span>
                 </div>
                 <div>
-                    <label for="Description" class="block mb-2 text-sm font-medium text-gray-900 ">Email-Id</label>
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">Email-Id</label>
                     <input type="text" name="email" bind:value={userEmail}
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
                     focus:border-blue-500 block w-full p-2.5 " placeholder="adam.smith@gmail.com" required>
+                    <span class="text-red-500">{userEmailError}</span>
                 </div>
 
                 <div>
-                    <label for="Name" class="block mb-2 text-sm font-medium text-gray-900  ">Contact Number</label>
+                    <label for="ContactNumber" class="block mb-2 text-sm font-medium text-gray-900  ">Contact Number</label>
                     <input type="text" name="ContactNumber" bind:value={userContactNo}
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
                     focus:border-blue-500 block w-full p-2.5 " placeholder="000-999-8888" required>
+                    <span class="text-red-500">{userContactError}</span>
                 </div>
 
                   <div class="flex items-center rounded-b">
                       <div class="ml-auto">
                           <button type="button" on:click={addContact} class="mx-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Submit</button>
-                          <button type="reset" class="mx-1 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Reset</button>
+                          <button type="reset" on:click={clearForm} class="mx-1 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Reset</button>
                       </div>
                   </div>
               </form>

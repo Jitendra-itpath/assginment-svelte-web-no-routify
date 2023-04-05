@@ -1,8 +1,3 @@
-<script lang="ts">
-  
-</script>
-  
-
 <div class="home mt-5 md:mx-8 mx-4">
     <div class="grid md:grid-cols-4 grid-cols-2 lg:gap-18 md:gap-12 gap-10">
         <div>
