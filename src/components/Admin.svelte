@@ -5,7 +5,7 @@
         contactsData = value
     });
 </script>
-<div class="md:mx-10 mx-2">
+<div class="md:mx-10 mx-2 md:pt-6 pt-2">
     <div class="overflow-x-auto shadow-md sm:rounded-lg ">
         <table class="w-full text-sm text-left text-gray-500  mt-10">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
