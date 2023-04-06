@@ -1,6 +1,10 @@
 <script lang="ts">
     import * as _ from 'lodash';
     import { productInfo } from '../stores/StoreData';
+    import toastr from 'toastr';
+    import 'toastr/build/toastr.min.css';
+    toastr.options.timeOut = 1500;
+
     let blurScreen : boolean = false
     let addProductToggle : boolean = false;   
     let deleteProductToggle : boolean = false;   
@@ -67,6 +71,7 @@
             });
             productInfo.update(users => [...users , {productId , productName , productDescription , productPrice}])
             formToggle('insert')
+            toastr.success('Product Added')
         }
     }
 
@@ -99,6 +104,7 @@
                 return products;
             });
             formToggle('update')
+            toastr.success('Product Updated')
         }
     }
     
@@ -106,7 +112,7 @@
     let forDeleteProductId = 0
     let deleteProductError = ''
     let displayDelete = ''
-    function setDeleteId(id){
+    function setDeleteId(id):void{
         forDeleteProductId = id;  
         let productForUpdate = _.find(productData,function(product){
             if(product.productId == id){
@@ -115,12 +121,13 @@
         });  
     }
 
-    function deleteProduct(){
+    function deleteProduct():void{
         productInfo.update(products => {
             let forDeleteProduct = _.find(products, { productId : forDeleteProductId });
             if(forDeleteProduct.productName === forDeleteProductName){
                 _.remove(products, { productId: forDeleteProductId });
                 formToggle('delete')
+                toastr.success('Product Deleted')
             }
             else{
                 deleteProductError = 'product name not match'
@@ -128,22 +135,22 @@
             return products;
         });
     }
-    function emptyInsertProductForm(){
+    function emptyInsertProductForm():void{
         productName = '';
         productDescription = ''
         productPrice = ''
     }
-    function clearError(){
+    function clearError():void{
         productPriceError = ''
         productNameError = ''
         productDescriptionError = ''
     }
-    function emptyUpdateProductForm(){
+    function emptyUpdateProductForm():void{
         newProductName = ''
         newProductDescription = ''
         newProductPrice = ''
     }
-    function clearDeleteForm(){
+    function clearDeleteForm():void{
         forDeleteProductId = 0
         forDeleteProductName = ''
         deleteProductError = ''
@@ -156,7 +163,7 @@
     });
 </script>
 
-<div class="md:mx-10 mx-2">
+<div class="md:mx-10 mx-2 md:pt-10 pt-2">
     <div class="mt-16 mb-8 z-[-1] flex"> 
         <div class="flex-grow"></div>
         <div>
@@ -186,7 +193,6 @@
                 </tr>
             </thead>
             <tbody>
-
                 {#each productData as product}
                     <tr class="bg-white border-b">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
@@ -306,7 +312,3 @@
         </div>
     </div>
 </div>
-
-<style>
-
-</style>
