@@ -1,20 +1,8 @@
 <script lang="ts">
-  import { productInfo } from '../stores/StoreData';
-  import { contactsInfo } from '../stores/StoreData';
   import { navigationComponent } from '../enums/navigationEnum';
   import { track } from "../stores/TrackComponents";
-  let productData
-  productInfo.subscribe(value => {
-      productData = value
-  });
-  let contactsData;
-  contactsInfo.subscribe(value => {
-      contactsData = value
-  });
-
-  let totalProducts = Object.keys(productData).length;
-  let totalContacts = Object.keys(contactsData).length;
-
+  import { totalProducts } from '../stores/StoreData';
+  import { totalContacts } from '../stores/StoreData';
 </script>
 <div class="home mt-6 md:mx-8 mx-4 md:pt-16 pt-8">
     <div class="grid md:grid-cols-2 lg:gap-24 md:gap-16 gap-10">

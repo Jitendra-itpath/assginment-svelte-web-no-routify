@@ -24,13 +24,13 @@
             <tbody>
                 {#each contactsData as user}
                     <tr class="bg-white border-b">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                        <td data-th="Name" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                             {user.userName}
-                        </th>
-                        <td class="px-6 py-4">
+                        </td>
+                        <td data-th="Email" class="px-6 py-4">
                             {user.userEmail}
                         </td>
-                        <td class="px-6 py-4">
+                        <td data-th="Contact Number" class="px-6 py-4">
                             {user.userContactNo}
                         </td>
                     </tr>
@@ -39,3 +39,7 @@
         </table>
     </div>
 </div>
+
+<style>
+   
+</style>

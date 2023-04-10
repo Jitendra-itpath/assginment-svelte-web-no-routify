@@ -5,9 +5,9 @@ import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
 toastr.options.timeOut = 1500;
 
-let userName = ''
-let userEmail = ''
-let userContactNo = ''
+let userName = null
+let userEmail = null
+let userContactNo = null
 
 let userNameError = ''
 let userEmailError = ''
@@ -20,27 +20,30 @@ contactsInfo.subscribe(value => {
 
 function validation():boolean{
     let status:boolean = true
-    if(userName === ''){
-        userNameError = 'This field is required'
+    if(userName === null){
+        userNameError = 'This field is required.'
+        status = false
+    }else if(!isNaN(Number(userName))){
+        userNameError = 'This only accept valid name.'
         status = false
     }
-    if(userEmail === ''){
-        userEmailError = 'This field is required'
+
+    if(userEmail === null){
+        userEmailError = 'This field is required.'
+        status = false
+    }else if(!userEmail.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+        userEmailError = 'This field only accept valid email.'
         status = false
     }
-    if(!userEmail.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
-        userEmailError = 'This field only accept valid email'
-        status = false
-    }
-    if(userContactNo === ''){
-        userContactError = 'This field is required'
+
+    if(userContactNo === null){
+        userContactError = 'This field is required.'
         status = false
     }else if(isNaN(Number(userContactNo))){
-        userContactError = 'This field only accepts numeric number'
+        userContactError = 'This field only accepts numeric number.'
         status = false
-    }
-    if(userContactNo.length !== 10){
-        userContactError = 'This field only accepts numeric 10 digit Contact No'
+    }else if(userContactNo.length !== 10){
+        userContactError = 'This field only accepts numeric 10 digit Contact No.'
         status = false
     }
     return status
@@ -82,7 +85,7 @@ function addContact():void {
                 <div>
                     <label for="ContactNumber" class="block mb-2 text-sm font-medium text-gray-900  ">Contact Number</label>
                     <input type="text" name="ContactNumber" bind:value={userContactNo} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                    focus:border-blue-500 block w-full p-2.5 " placeholder="000-999-8888" required>
+                    focus:border-blue-500 block w-full p-2.5 " placeholder="0123456789" required>
                     <span class="text-red-500">{userContactError}</span>
                 </div>
                   <div class="flex items-center rounded-b">
