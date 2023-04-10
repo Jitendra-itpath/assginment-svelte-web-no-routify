@@ -46,12 +46,12 @@ export const productInfo = writable([
     { productId : 25, productName : 'Smart TV', productDescription : 'Description of Smart TV', productPrice : '2500' },
 ]);
 
+export let totalProducts
+productInfo.subscribe(value => {
+    totalProducts = Object.keys(value).length;
+});
 
-
-
-
-
-
-
-
-
+export let totalContacts
+contactsInfo.subscribe(value => {
+    totalContacts = Object.keys(value).length;
+});

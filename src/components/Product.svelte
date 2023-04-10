@@ -35,7 +35,7 @@
     let productNameError = ''
     let productDescriptionError = ''
 
-    function validation(productName,productDescription,productPrice){
+    function validation(productName,productDescription,productPrice):boolean{
         let status:boolean = true
         if(productName === ''){
             productNameError = 'This field is required'
@@ -195,17 +195,17 @@
             <tbody>
                 {#each productData as product}
                     <tr class="bg-white border-b">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                        <td data-th="Name" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                             {product.productName}
-                        </th>
-                        <td class="px-6 py-4">
+                        </td>
+                        <td data-th="Price" class="px-6 py-4">
                             ${product.productPrice}
                         </td>
-                        <td class="px-6 py-4">
+                        <td data-th="Description" class="px-6 py-4">
                             {product.productDescription}
                         </td>
-                        <td class="px-6 py-4">
-                            <div class="flex">
+                        <td data-th="Action" class="px-6 py-4">
+                            <div class="flex w-fit">
                                 <div>
                                     <button type="button" on:click={() => {formToggle('update'); findProductForUpdate(product.productId);}} class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Edit</button>
                                 </div>
@@ -221,10 +221,9 @@
     </div>
 </div>
 
-
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div class="{blurScreen? '':'hidden' } z-[2] backdrop-blur-lg fixed top-0 left-0 right-0 bottom-0 p-4 overflow-x-hidden overflow-y-auto md:inset-0 md:h-full">
-    <div class="ml-auto mr-auto w-full h-full max-w-md md:h-auto mt-7 {addProductToggle? '':'hidden' }">
+    <div class="ml-auto mr-auto w-full h-full max-w-md md:h-auto {addProductToggle? '':'hidden' }">
         <div class="bg-white rounded-lg shadow">
             <div class="px-6 py-6 lg:px-8">
                 <h3 class="mb-4 text-xl font-medium text-gray-900 "> Add new product </h3>
@@ -249,7 +248,7 @@
                     <div class="flex items-center rounded-b">
                         <div class="ml-auto">
                             <button type="button" on:click={addProduct} class=" disabled:opacity-40 mx-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Add</button>
-                            
+
                             <button on:click={()=>formToggle('insert')} type="button" class="mx-1 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Cancel</button>
                         </div>
                     </div>
