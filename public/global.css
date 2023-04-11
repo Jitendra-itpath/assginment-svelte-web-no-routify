@@ -14,23 +14,29 @@ body {
 
 @media (max-width: 640px) {
 	table {
-	  overflow-x: auto;
-	  white-space: nowrap;
-	  width: 100%;
+		overflow-x: auto;
+		white-space: nowrap;
+		width: 100%;
 	}
 	thead{
-	  display: none;
+		display: none;
 	}
 	td::before {
-	  content: attr(data-th);
-	  float: left;
-	  margin-right: 20px;
+		content: attr(data-th);
+		float: left;
+		margin-right: 20px;
+		color: black;
+		font-weight: bold;
 	}
 	td {
-	  display: block;
-	  text-align: right;
+		display: block;
+		text-align: right;
 	}
 	td div{
 		float: right;
 	}
-  }
+}
+
+.popup{
+	margin-top: 20dvh;
+}

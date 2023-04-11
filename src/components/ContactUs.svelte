@@ -61,7 +61,7 @@ function addContact():void {
         userName = ''
         userEmail = ''
         userContactNo = '' 
-        toastr.success('Contact Added')
+        toastr.success('Contact Added.')
     }
 }
 </script>

@@ -24,7 +24,7 @@
             <tbody>
                 {#each contactsData as user}
                     <tr class="bg-white border-b">
-                        <td data-th="Name" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                        <td data-th="Name" class="px-6 py-4 font-medium whitespace-nowrap ">
                             {user.userName}
                         </td>
                         <td data-th="Email" class="px-6 py-4">
