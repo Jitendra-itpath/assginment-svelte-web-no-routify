@@ -21,3 +21,4 @@
 <svelte:component this={componentOptions[$track]} />
 
 <Footer />
+

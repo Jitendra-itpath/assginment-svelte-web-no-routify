@@ -37,4 +37,4 @@
       <div class="select-none text-white px-3 my-2 hover:text-white-800 md:text-center md:mx-auto text-white hover:text-green-700" on:click={() => switchComponents(navigationComponent.Admin )}>Admin</div>
     </div>
 </nav>
-<div class="my-20 md:my-30"></div>
+<div class="my-16 md:my-30"></div>

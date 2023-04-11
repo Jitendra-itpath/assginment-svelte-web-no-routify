@@ -27,9 +27,9 @@
         }
         blurScreen = !blurScreen
     }
-    let productName = '';
-    let productDescription = ''
-    let productPrice = ''
+    let productName = null;
+    let productDescription = null
+    let productPrice = null
 
     let productPriceError = ''
     let productNameError = ''
@@ -38,24 +38,24 @@
     function validation(productName,productDescription,productPrice):boolean{
         let status:boolean = true
         if(productName === ''){
-            productNameError = 'This field is required'
+            productNameError = 'This field is required.'
             status = false
         }else if(productName.length < 5 || productName.length >= 30){
-            productNameError = 'Product name length must be between 5 to 50'
+            productNameError = 'Product name length must be between 5 to 50.'
             status = false
         }
         if(productDescription === ''){
-            productDescriptionError = 'This field is required'
+            productDescriptionError = 'This field is required.'
             status = false
         }else if(productDescription.length < 5 || productDescription.length >= 50 ){
-            productDescriptionError = 'Description length must be between 5 to 50'
+            productDescriptionError = 'Description length must be between 5 to 50.'
             status = false
         }
         if(productPrice === ''){
-            productPriceError = 'This field is required'
+            productPriceError = 'This field is required.'
             status = false
         }else if(isNaN(Number(productPrice))){
-            productPriceError = 'Enter proper price'
+            productPriceError = 'Enter proper price.'
             status = false
         }
         return status
@@ -71,7 +71,7 @@
             });
             productInfo.update(users => [...users , {productId , productName , productDescription , productPrice}])
             formToggle('insert')
-            toastr.success('Product Added')
+            toastr.success('Product Added.')
         }
     }
 
@@ -104,7 +104,7 @@
                 return products;
             });
             formToggle('update')
-            toastr.success('Product Updated')
+            toastr.success('Product Updated.')
         }
     }
     
@@ -127,10 +127,10 @@
             if(forDeleteProduct.productName === forDeleteProductName){
                 _.remove(products, { productId: forDeleteProductId });
                 formToggle('delete')
-                toastr.success('Product Deleted')
+                toastr.success('Product Deleted.')
             }
             else{
-                deleteProductError = 'product name not match'
+                deleteProductError = 'product name not match.'
             }
             return products;
         });
@@ -195,7 +195,7 @@
             <tbody>
                 {#each productData as product}
                     <tr class="bg-white border-b">
-                        <td data-th="Name" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                        <td data-th="Name" class="px-6 py-4 font-medium whitespace-nowrap ">
                             {product.productName}
                         </td>
                         <td data-th="Price" class="px-6 py-4">
@@ -205,7 +205,7 @@
                             {product.productDescription}
                         </td>
                         <td data-th="Action" class="px-6 py-4">
-                            <div class="flex w-fit">
+                            <div class="flex">
                                 <div>
                                     <button type="button" on:click={() => {formToggle('update'); findProductForUpdate(product.productId);}} class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Edit</button>
                                 </div>
@@ -223,7 +223,7 @@
 
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div class="{blurScreen? '':'hidden' } z-[2] backdrop-blur-lg fixed top-0 left-0 right-0 bottom-0 p-4 overflow-x-hidden overflow-y-auto md:inset-0 md:h-full">
-    <div class="ml-auto mr-auto w-full h-full max-w-md md:h-auto {addProductToggle? '':'hidden' }">
+    <div class="border border-gray-300 rounded-lg ml-auto mr-auto w-full h-full max-w-md md:h-auto popup {addProductToggle? '':'hidden' }">
         <div class="bg-white rounded-lg shadow">
             <div class="px-6 py-6 lg:px-8">
                 <h3 class="mb-4 text-xl font-medium text-gray-900 "> Add new product </h3>
@@ -256,7 +256,7 @@
             </div>
         </div>
     </div>
-    <div class="ml-auto mr-auto w-full h-full max-w-md md:h-auto mt-7 {deleteProductToggle? '':'hidden' }">
+    <div class="border border-gray-300 rounded-lg ml-auto mr-auto w-full h-full max-w-md md:h-auto popup {deleteProductToggle? '':'hidden' }">
         <div class="bg-white rounded-lg shadow">
             <div class="px-6 py-6 lg:px-8">
                 <h3 class="mb-4 text-xl font-medium text-gray-900 "> Delete - {displayDelete} </h3>
@@ -277,7 +277,7 @@
             </div>
         </div>
     </div>
-    <div class="ml-auto mr-auto w-full h-full max-w-md md:h-auto mt-7 {updateProductToggle? '':'hidden' }">
+    <div class="border border-gray-300 rounded-lg ml-auto mr-auto w-full h-full max-w-md md:h-auto popup {updateProductToggle? '':'hidden' }">
         <div class="bg-white rounded-lg shadow">
             <div class="px-6 py-6 lg:px-8">
                 <h3 class="mb-4 text-xl font-medium text-gray-900 "> Edit product - {newProductName} </h3>
